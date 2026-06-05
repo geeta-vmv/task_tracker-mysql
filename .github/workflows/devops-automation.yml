@@ -30,8 +30,15 @@ jobs:
         with:
           node-version: '18'
 
-      # ४. फ्रंटएंड (React) बिल्ड करणे (थेट रूट डिरेक्टरीमधून)
-      - name: Build React Frontend
+      # ४. गिटहबला ऑटोमॅटिक फ्रंटएंड फोल्डर शोधून बिल्ड करू दे
+      - name: Automatically Find and Build React Frontend
         run: |
-          npm install
-          npm run build --if-present
+          FRONTEND_DIR=$(find . -name "package.json" -not -path "*/node_modules/*" -exec dirname {} \;)
+          if [ -n "$FRONTEND_DIR" ]; then
+            echo "Front-end found in: $FRONTEND_DIR"
+            cd "$FRONTEND_DIR"
+            npm install
+            npm run build --if-present
+          else
+            echo "No package.json found, skipping npm build."
+          fi
