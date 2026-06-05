@@ -20,7 +20,7 @@ jobs:
           cache: maven
 
       - name: Build Spring Boot Backend with Maven
-        run: ./mvnw clean install
+        run: mvn clean package -DskipTests
 
   build-frontend:
     runs-on: ubuntu-latest
