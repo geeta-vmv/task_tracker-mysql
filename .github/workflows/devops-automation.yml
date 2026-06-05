@@ -33,5 +33,6 @@ jobs:
 
       - name: Build React Frontend
         run: |
+          cd task_tracker_ui
           npm install
           npm run build --if-present
